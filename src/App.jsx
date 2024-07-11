@@ -1,11 +1,14 @@
 import React from "react";
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  BrowserRouter,
+} from "react-router-dom";
+import Signup from "./pages/Signup";
+import Navbar from "./components/Navbar";
 const App = () => {
-  return (
-    <div>
-      <h2>Hello</h2>
-    </div>
-  );
+  return <Navbar />;
 };
 
 export default App;
