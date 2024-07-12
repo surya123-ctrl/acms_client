@@ -48,3 +48,64 @@
     color: #000000;
     z-index: 1;
 }
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.slider-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider {
+    display: flex;
+    width: 200%;
+    /* 2 sets of images */
+    animation: scroll 20s linear infinite;
+}
+
+.slider img {
+    width: 40%;
+    height: 24rem;
+    /* Adjust height as needed */
+    object-fit: cover;
+}
+
+.testimonial-card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.testimonial-card:hover {
+    background-color: white;
+    color: #000000;
+    transform: scale(1.05);
+}
+
+.contact-card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-card:hover {
+    transform: scale(1.05);
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #a3e635;
+}
+
+button {
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #b7e209;
+    color: #b3b3b3
+}
