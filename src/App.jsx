@@ -8,8 +8,14 @@ import {
 } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
+import LandingPage from "./pages/LandingPage";
 const App = () => {
-  return <Navbar />;
+  return (
+    <>
+      <Navbar />
+      <LandingPage />
+    </>
+  );
 };
 
 export default App;
