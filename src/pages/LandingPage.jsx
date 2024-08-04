@@ -7,7 +7,7 @@ import LandingPageSection5 from "../components/LandingPageSection5";
 import LandingPageSection6 from "../components/LandingPageSection6";
 import LandingPageSection7 from "../components/LandingPageSection7";
 import LandingPageSection8 from "../components/LandingPageSection8";
-import LandingPageSection9 from "../components/LandingPageSection9";
+// import LandingPageSection9 from "../components/LandingPageSection9";
 
 const LandingPage = () => {
   return (
@@ -20,7 +20,7 @@ const LandingPage = () => {
       <LandingPageSection6 />
       <LandingPageSection7 />
       <LandingPageSection8 />
-      <LandingPageSection9 />
+      {/* <LandingPageSection9 /> */}
     </>
   );
 };

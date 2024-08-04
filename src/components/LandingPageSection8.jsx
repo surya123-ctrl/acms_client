@@ -22,7 +22,7 @@ const LandingPageSection8 = () => {
     },
   ];
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-zinc-900 p-16">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-900 p-16">
       <div className="w-full p-8 rounded shadow-lg text-center">
         <p className="text-xl text-white mb-8">
           Our team is here to assist you with any inquiries you may have.

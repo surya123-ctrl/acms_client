@@ -1,13 +1,13 @@
 import React from "react";
-import "./Navbar.css"; // Import the custom CSS
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="bg-zinc-900 p-4">
+    <nav className="bg-gray-900 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex space-x-4">
           <a
-            href="#"
+            href="/"
             className="link-transition text-xl text-white font-medium relative overflow-hidden"
           >
             <span>Home</span>
@@ -38,12 +38,18 @@ const Navbar = () => {
           </a>
         </div>
         <div className="flex space-x-4">
-          <button className="button-transition bg-lime-400 text-xl text-white px-4 py-2 rounded border border-lime-400 relative overflow-hidden">
+          <Link
+            to="/login"
+            className="button-transition bg-lime-400 text-xl text-white px-4 py-2 rounded border border-lime-400 relative overflow-hidden"
+          >
             <span className="relative z-10">Login</span>
-          </button>
-          <button className="button-transition text-xl text-white px-4 py-2 rounded border border-lime-400 relative overflow-hidden">
+          </Link>
+          <Link
+            to="/signup"
+            className="button-transition text-xl text-white px-4 py-2 rounded border border-lime-400 relative overflow-hidden"
+          >
             <span className="relative z-10">Sign Up</span>
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

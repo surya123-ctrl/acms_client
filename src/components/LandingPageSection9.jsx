@@ -11,7 +11,7 @@ import {
 
 const LandingPageSection9 = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-zinc-900 p-16">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-900 p-16">
       <div className="w-full p-8 rounded shadow-lg text-center">
         {/* Newsletter Subscription */}
         <div className="mb-16">
