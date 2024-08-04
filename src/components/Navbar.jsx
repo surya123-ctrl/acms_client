@@ -52,6 +52,12 @@ const Navbar = () => {
             >
               <span>Contact</span>
             </a>
+            <a
+              href="/add-client"
+              className="link-transition text-xl text-white font-medium relative overflow-hidden"
+            >
+              <span>Add Client</span>
+            </a>
           </div>
           <div className="flex space-x-4">
             {advocateLoggedInDetails?.isAdvocateLoggedIn ? (
