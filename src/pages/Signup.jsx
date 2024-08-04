@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import IMage from "../assets/slide-1.jpg";
 import { _post } from "../api/apiClient";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
