@@ -67,7 +67,7 @@ const LandingPageSection6 = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-zinc-900 p-8">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-900 p-8">
       <div className="max-w-4xl w-full p-8 rounded shadow-lg text-center">
         <p className="text-lg text-white mb-2">
           Choose the perfect plan for you

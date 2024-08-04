@@ -29,7 +29,7 @@ const LandingPageSection7 = () => {
     },
   ];
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-zinc-900 p-16">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-900 p-16">
       <div className=" w-full p-8 rounded shadow-lg text-center">
         <h1 className="text-6xl text-white mb-6">Testimonials</h1>
         <p className="text-xl text-white mb-8 ">

@@ -4,7 +4,7 @@ const HoverCard = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-zinc-900">
+    <div className="flex justify-center items-center h-screen bg-gray-900">
       <div className="relative">
         <div
           className={`w-[70rem] h-[20rem] rounded-lg shadow-md transition-transform transform ${

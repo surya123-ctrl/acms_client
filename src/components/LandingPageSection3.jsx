@@ -24,7 +24,7 @@ const LandingPageSection3 = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-zinc-900 p-4">
+    <div className="flex justify-center items-center h-screen bg-gray-900 p-4">
       <div className="flex flex-col justify-center items-center w-full lg:w-1/2 p-4">
         <img
           src={currentImage}

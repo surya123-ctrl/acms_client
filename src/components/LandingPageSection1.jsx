@@ -2,7 +2,7 @@ import React from "react";
 
 const LandingPageSection1 = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-white">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
       <div className="text-center">
         <h1 className="text-8xl font-bold mb-20">
           Empower Your Legal Practice with Advocate Case Management System
