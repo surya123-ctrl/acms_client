@@ -1,17 +1,15 @@
 import React, { useContext } from "react";
 import { AuthAdvocateContext } from "../context/AuthAdvocateContext";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const Private = ({ Component }) => {
-  const navigate = useNavigate();
-  const advocateLoggedInDetails = useContext(AuthAdvocateContext);
-
-  if (!advocateLoggedInDetails.isAdvocateLoggedIn) {
-    navigate("/login");
-    return null; // Render nothing while redirecting
-  }
-
-  return <Component />;
+const Private = (props) => {
+  const {user, setUser} = useContext(AuthAdvocateContext);
+  console.log("Private: ", user);
+  return user ? (
+    <props.Component />
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default Private;

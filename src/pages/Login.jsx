@@ -11,7 +11,7 @@ const Login = () => {
     phoneNumber: "",
     password: "",
   });
-  const advocateLoggedInDetails = useContext(AuthAdvocateContext);
+  const {user, setUser} = useContext(AuthAdvocateContext);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const handleInputChange = (e) => {
@@ -27,8 +27,9 @@ const Login = () => {
     setIsLoading(true);
     try {
       const response = await _post("/auth/login", formData);
-      advocateLoggedInDetails?.setIsAdvocateLoggedIn(response.data);
-      localStorage.setItem("acms_advocate_user", JSON.stringify(response.data));
+      setUser(response?.data?.data?.user);
+      localStorage.setItem("user", JSON.stringify(response.data?.data?.user));
+      localStorage.setItem("token", response.data?.data?.token);
       setFormData({
         email: "",
         phoneNumber: "",

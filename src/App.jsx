@@ -15,13 +15,11 @@ import { AuthAdvocateContext } from "./context/AuthAdvocateContext";
 import Private from "./components/Private";
 import AddClient from "./pages/AddClient";
 const App = () => {
-  const [isAdvocateLoggedIn, setIsAdvocateLoggedIn] = useState(
-    JSON.parse(localStorage.getItem("acms_advocate_user"))
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   return (
     <>
       <AuthAdvocateContext.Provider
-        value={{ isAdvocateLoggedIn, setIsAdvocateLoggedIn }}
+        value={{ user, setUser }}
       >
         <BrowserRouter>
           <Navbar />
