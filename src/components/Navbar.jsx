@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthAdvocateContext } from "../context/AuthAdvocateContext";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
-  const advocateLoggedInDetails = useContext(AuthAdvocateContext);
-  console.log("navbar", advocateLoggedInDetails);
+  const { user, setUser } = useContext(AuthAdvocateContext);
+  console.log("navbar", user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -12,8 +12,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     setIsModalOpen(false);
-    advocateLoggedInDetails.setIsAdvocateLoggedIn(null);
-    localStorage.setItem("acms_advocate_user", null);
+    setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
@@ -22,51 +23,50 @@ const Navbar = () => {
       <nav className="bg-gray-900 p-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex space-x-4">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="link-transition text-xl text-white font-medium relative overflow-hidden"
             >
               <span>Home</span>
-            </a>
-            <a
-              href="#features"
+            </Link>
+            <Link
+              to="#features"
               className="link-transition text-xl text-white font-medium relative overflow-hidden"
             >
               <span>Features</span>
-            </a>
-            <a
-              href="#clients"
+            </Link>
+            <Link
+              to="#clients"
               className="link-transition text-xl text-white font-medium relative overflow-hidden"
             >
               <span>Clients</span>
-            </a>
-            <a
-              href="#pricing"
+            </Link>
+            <Link
+              to="#pricing"
               className="link-transition text-xl text-white font-medium relative overflow-hidden"
             >
               <span>Pricing</span>
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              to="#contact"
               className="link-transition text-xl text-white font-medium relative overflow-hidden"
             >
               <span>Contact</span>
-            </a>
-            <a
-              href="/add-client"
-              className="link-transition text-xl text-white font-medium relative overflow-hidden"
-            >
-              <span>Add Client</span>
-            </a>
+            </Link>
+            {user && (
+              <Link
+                to="/add-client"
+                className="link-transition text-xl text-white font-medium relative overflow-hidden"
+              >
+                <span>Add Client</span>
+              </Link>
+            )}
           </div>
           <div className="flex space-x-4">
-            {advocateLoggedInDetails?.isAdvocateLoggedIn ? (
+            {user ? (
               <div className="relative">
                 <img
-                  src={
-                    advocateLoggedInDetails?.isAdvocateLoggedIn?.data.user
-                      .profilePicture
-                  }
+                  src={user?.profilePicture}
                   alt="Profile"
                   className="w-10 h-10 rounded-full border-2 border-lime-400 cursor-pointer"
                   onClick={toggleModal}
@@ -74,33 +74,15 @@ const Navbar = () => {
                 {isModalOpen && (
                   <div className="absolute right-0 mt-2 w-auto bg-gray-800 rounded-md shadow-lg py-2 px-2">
                     <p className="text-gray-100 mt-2">
-                      {advocateLoggedInDetails?.isAdvocateLoggedIn?.data?.user
-                        .firstName +
+                      {user.firstName +
                         " " +
-                        advocateLoggedInDetails?.isAdvocateLoggedIn?.data?.user
-                          .middleName +
+                        user.middleName +
                         " " +
-                        advocateLoggedInDetails?.isAdvocateLoggedIn?.data?.user
-                          .lastName}
+                        user.lastName}
                     </p>
-                    <p className="text-gray-100 mt-2">
-                      {
-                        advocateLoggedInDetails?.isAdvocateLoggedIn?.data?.user
-                          .email
-                      }
-                    </p>
-                    <p className="text-gray-100 mt-2">
-                      {
-                        advocateLoggedInDetails?.isAdvocateLoggedIn?.data?.user
-                          .phoneNumber
-                      }
-                    </p>
-                    <p className="text-gray-100 mt-2">
-                      {
-                        advocateLoggedInDetails?.isAdvocateLoggedIn?.data?.user
-                          ._id
-                      }
-                    </p>
+                    <p className="text-gray-100 mt-2">{user.email}</p>
+                    <p className="text-gray-100 mt-2">{user.phoneNumber}</p>
+                    <p className="text-gray-100 mt-2">{user._id}</p>
                     <Link
                       // to="/login"
                       onClick={handleLogout}
