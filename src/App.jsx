@@ -14,6 +14,8 @@ import LandingPageSection9 from "./components/LandingPageSection9";
 import { AuthAdvocateContext } from "./context/AuthAdvocateContext";
 import Private from "./components/Private";
 import AddClient from "./pages/AddClient";
+import Client from "./pages/Client";
+import ClientDetail from "./pages/ClientDetail";
 const App = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   return (
@@ -31,6 +33,8 @@ const App = () => {
               path="/add-client"
               element={<Private Component={AddClient} />}
             />
+            <Route path="/client" element={<Private Component={Client} />} />
+            <Route path="/client/:id" element={<Private Component={ClientDetail} />} />
           </Routes>
           <LandingPageSection9 />
         </BrowserRouter>
