@@ -101,14 +101,14 @@ input:focus {
     border: 2px solid #a3e635;
 }
 
-button {
+/* button {
     transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #b7e209;
     color: #b3b3b3
-}
+} */
 
 /* .slider {
     position: relative;

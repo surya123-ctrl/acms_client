@@ -1,19 +1,21 @@
-// LoginPage.js
 import React, { useContext, useState } from "react";
 import { _post } from "../api/apiClient";
 import ImageSlider from "../components/ImageSlider";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { AuthAdvocateContext } from "../context/AuthAdvocateContext";
+import toast from "react-hot-toast";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     phoneNumber: "",
     password: "",
   });
-  const {user, setUser} = useContext(AuthAdvocateContext);
+  const { user, setUser } = useContext(AuthAdvocateContext);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,25 +24,31 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    try {
-      const response = await _post("/auth/login", formData);
-      setUser(response?.data?.data?.user);
-      localStorage.setItem("user", JSON.stringify(response.data?.data?.user));
-      localStorage.setItem("token", response.data?.data?.token);
-      setFormData({
-        email: "",
-        phoneNumber: "",
-        password: "",
-      });
-      navigate("/");
-    } catch (error) {
-      console.error("Error logging in:", error);
-    } finally {
-      setIsLoading(false);
-    }
+
+    toast
+      .promise(_post("/auth/login", formData), {
+        loading: "Logging in...",
+        success: (response) => {
+          setUser(response?.data?.data?.user);
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.data?.data?.user)
+          );
+          localStorage.setItem("token", response.data?.data?.token);
+          setFormData({
+            email: "",
+            phoneNumber: "",
+            password: "",
+          });
+          navigate("/");
+          return "Login successful!";
+        },
+        error: "Error logging in. Please check your credentials.",
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
