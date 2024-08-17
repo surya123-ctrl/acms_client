@@ -1,29 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { _get } from "../api/apiClient";
+import { _get, _post } from "../api/apiClient";
 import { ClipLoader } from "react-spinners";
 import toast from "react-hot-toast";
+import { AuthAdvocateContext } from "../context/AuthAdvocateContext";
+
 const ClientDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [client, setClient] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [cases, setCases] = useState([]);
+  const { user } = useContext(AuthAdvocateContext);
 
   useEffect(() => {
     const fetchClient = async () => {
       setIsLoading(true);
 
-      toast.promise(
-        _get(`/client/getclient/${id}`),
-        {
-          loading: "Loading client details...",
-          success: (response) => {
-            setClient(response?.data?.data);
-            return "Client details loaded successfully!";
-          },
-          error: "Error loading client details. Please try again.",
-        }
-      ).finally(() => setIsLoading(false));
+      try {
+        const clientResponse = await toast.promise(
+          _get(`/client/getclient/${id}`),
+          {
+            loading: "Loading client details...",
+            success: "Client details loaded successfully!",
+            error: "Error loading client details. Please try again.",
+          }
+        );
+
+        const clientData = clientResponse?.data?.data;
+        setClient(clientData);
+
+        const caseResponse = await _post(`/case/getCaseOfClient/${id}`, {
+          advocateId: user._id,
+        });
+        console.log(caseResponse.data.data);
+        setCases(caseResponse?.data?.data || []);
+
+      } catch (error) {
+        console.error("Error fetching client details or cases", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchClient();
@@ -37,10 +54,16 @@ const ClientDetail = () => {
     navigate(`/client/${id}/edit`);
   };
 
+  const handleViewCaseClick = () => {
+    if (cases.length > 0) {
+      navigate(`/case/${id}`);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="h-screen flex items-center justify-center bg-gray-800 text-white">
-        <ClipLoader color="#ffffff"/>
+        <ClipLoader color="#ffffff" />
       </div>
     );
   }
@@ -74,9 +97,26 @@ const ClientDetail = () => {
             <p className="text-lg mb-2">
               <strong>Phone Number:</strong> {client.phoneNumber}
             </p>
-            <p className="text-lg mb-4">
-              <strong>Case Types:</strong> {client.case.join(", ") || "No cases assigned"}
-            </p>
+            <div className="text-lg mb-4">
+              <strong>Case Types:</strong>{" "}
+              {cases.length > 0
+                ? cases.map((caseDetail) => (
+                    <span
+                      key={caseDetail._id}
+                      style={{
+                        color:
+                          caseDetail.status === "PENDING"
+                            ? "red"
+                            : caseDetail.status === "DISPOSED"
+                            ? "green"
+                            : "inherit",
+                      }}
+                    >
+                      {caseDetail.caseDetails}
+                    </span>
+                  )).reduce((prev, curr) => [prev, ", ", curr])
+                : "No cases assigned"}
+            </div>
             <div className="flex gap-4">
               <button
                 onClick={handleAddCaseClick}
@@ -89,6 +129,17 @@ const ClientDetail = () => {
                 className="bg-blue-500 text-white px-4 py-2 rounded-md border border-blue-700 hover:bg-blue-600"
               >
                 Edit Client
+              </button>
+              <button
+                onClick={handleViewCaseClick}
+                disabled={cases.length === 0}
+                className={`${
+                  cases.length > 0
+                    ? "bg-purple-500 hover:bg-purple-600 border-purple-700"
+                    : "bg-gray-500 cursor-not-allowed border-gray-700"
+                } text-white px-4 py-2 rounded-md`}
+              >
+                View Cases
               </button>
             </div>
           </div>
