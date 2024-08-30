@@ -4,7 +4,7 @@ import { _get, _post } from "../api/apiClient";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-hot-toast";
 import { AuthAdvocateContext } from "../context/AuthAdvocateContext";
-
+import { useNavigate } from "react-router-dom";
 const caseTypesList = [
   { value: "90", label: "A227 - MATTERS UNDER ARTICLE 227" },
   { value: "106", label: "A228 - MATTERS UNDER ARTICLE 228" },
@@ -189,6 +189,7 @@ const AddCaseInfo = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user, setUser } = useContext(AuthAdvocateContext);
   const [cases, setCases] = useState([]);
+  const navigate = useNavigate();
   console.log(user._id);
   useEffect(() => {
     const fetchClient = async () => {
@@ -229,6 +230,7 @@ const AddCaseInfo = () => {
         advocateId: user._id,
       });
       toast.success("Case details submitted successfully!");
+      navigate(`/case/${id}`)
     } catch (error) {
       console.error("Error submitting case details:", error);
       toast.error("Failed to submit case details. Please try again.");
